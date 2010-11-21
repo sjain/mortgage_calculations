@@ -14,11 +14,10 @@ Echoe.new("mortgage_calc", MortgageCalc::VERSION) do |p|
   p.author = "Perry Hertler"
   p.email = "perry@hertler.org"
   p.ignore_pattern = ["tmp/*", "script/*, .idea/*"]
-  p.development_dependencies = []
+  p.development_dependencies = ["rspec >=1.3.1"]
 end
 
 Dir["#File.dirname(__FILE__)}/tasks/*.rake"].sort.each { |ext| load ext }
-
 spec_files = Rake::FileList["spec/**/*_spec.rb"]
 
 desc "Run specs"
@@ -32,6 +31,3 @@ Cucumber::Rake::Task.new(:features) do |t|
 end
 
 task :default => [:spec, :features]
-
-
-

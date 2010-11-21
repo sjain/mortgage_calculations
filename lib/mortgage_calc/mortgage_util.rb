@@ -22,7 +22,7 @@ module MortgageCalc
       @monthly_payment_with_fees ||= calculate_monthly_payment(self.loan_amount + total_fees, monthly_interest_rate, self.period)
     end
 
-    def total_fees(negative_allowed = false)
+    def total_fees(negative_allowed = true)
       #fees may not be negative (borrower is not paid)
       total_fees = calculate_total_fees
       !negative_allowed && total_fees < 0 ? 0 : total_fees

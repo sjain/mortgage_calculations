@@ -35,10 +35,30 @@ module MortgageCalc
     end
   end
 
+#  context "with very small loan amount" do
+#    it "should calculate proper apr when loan_amount is very small" do
+#      @mortgage_util = MortgageUtil.new(5000, 6.0, 360, 1200, 1.25)
+#      puts "@mortgage_util.apr = #{@mortgage_util.apr}"
+#    end
+#  end
+
+  # APR calculations from following web site are assumed to be accurate:
+  # http://www.debtconsolidationcare.com/calculator/apr.html
+  context "test apr calculation" do
+    it "should calculate proper apr" do
+      @mortgage_util = MortgageUtil.new(125000, 6.5, 360, 5000, 0)
+      @mortgage_util.apr.should be_close 6.881, 0.001
+    end
+    it "should calculate apr < interest_rate properly" do
+      @mortgage_util = MortgageUtil.new(125000, 6.5, 360, -5000, 0)
+      @mortgage_util.apr.should be_close 6.112, 0.001
+    end
+  end
+
   context "net negative fees" do
      before(:all) do
       @mortgage_util =  MortgageUtil.new(100000, 6.0, 360, 1200, -11.25)
-      @mortgage_util.total_fees.should be 0
+      @mortgage_util.total_fees.should eql -10050.0
     end
     it "calculate total fees should return actual total fees is less than 0" do
        @mortgage_util.send(:calculate_total_fees).should eql -10050.0
@@ -50,7 +70,7 @@ module MortgageCalc
        @mortgage_util.total_fees(true).should eql -10050.0
     end
     it "should not return APR less than interest rate" do
-      @mortgage_util.apr.should be_close 6.0, 0.00000001
+      @mortgage_util.apr.should be_close 5.04043, 0.00001
     end
   end
 
