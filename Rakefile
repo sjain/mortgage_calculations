@@ -8,8 +8,8 @@ require 'lib/mortgage_calc'
 require 'cucumber/rake/task'
 require 'spec/rake/spectask'
 
-Echoe.new("mortgage_calc", MortgageCalc::VERSION) do |p|
-  p.description = "Mortgage utilities"
+Echoe.new("mortgage_calculations", MortgageCalc::VERSION) do |p|
+  p.description = "Utilities for Mortgage related calculations (APR and Monthly Payments)"
   p.url = "http://www.pathf.com/blogs/2010/02/mortcalc-gem/"
   p.author = "Perry Hertler"
   p.email = "perry@hertler.org"
